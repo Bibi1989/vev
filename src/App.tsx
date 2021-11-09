@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import "./App.css";
 import Circle from "./components/Circle";
+
+import "./App.css";
 
 function App() {
   return (

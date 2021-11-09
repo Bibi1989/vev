@@ -1,9 +1,11 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import styled from "styled-components";
-import Draggable from "react-draggable";
+import Draggable, { DraggableEvent, DraggableData } from "react-draggable";
 import { diagonalAngle, diagonalLine } from "../lib/diagonal";
 
 const Circle = () => {
+  const nodeRef = useRef(null);
+
   const [circleOneValues, setCircleOneValues] = useState({
     x: 0,
     y: 0,
@@ -45,8 +47,7 @@ const Circle = () => {
     }
   };
 
-  const handleDragTwo = (e: any, data: any) => {
-    console.log(data);
+  const handleDragTwo = (e: DraggableEvent, data: DraggableData) => {
     const { lastX, lastY } = data;
     setCircleTwoValues({
       ...circleTwoValues,
@@ -131,8 +132,11 @@ const Circle = () => {
         rotateX={angleX}
         translate={line}
       />
-      <div id="line"></div>
-      <Draggable onDrag={handleDragTwo}>
+      <Draggable
+        onDrag={handleDragTwo}
+        defaultPosition={{ x: 0, y: 0 }}
+        nodeRef={nodeRef}
+      >
         <CircleContainer
           id="circle2"
           style={{
